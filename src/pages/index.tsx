@@ -1,4 +1,5 @@
-import App from "./App";
+import { RootStoreProvider as DocIntelligenceProvider } from "@lid-vizion/document-intelligence";
+import App from "../components/App";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const defaultTheme = createTheme(); // MUI default theme
@@ -6,7 +7,9 @@ const defaultTheme = createTheme(); // MUI default theme
 export default function HomePage() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <App />
+      <DocIntelligenceProvider>
+        <App />
+      </DocIntelligenceProvider>
     </ThemeProvider>
   );
 }

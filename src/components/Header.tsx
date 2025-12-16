@@ -1,8 +1,14 @@
-import { AppBar, Box, Button, IconButton, Typography, useTheme } from '@mui/material';
+import { AppBar, Box, Button, Chip, IconButton, Typography, useTheme } from '@mui/material';
 import { GitHub, OpenInNew } from '@mui/icons-material';
 import LidVizionIcon from './LidVizionIcon';
+import { features } from './App';
 
-export default function Header() {
+type HeaderProps = {
+  selectedFeatureIdx: number;
+  setSelectedFeatureIdx: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const Header: React.FC<HeaderProps> = ({ selectedFeatureIdx, setSelectedFeatureIdx }) => {
   const theme = useTheme();
 
   return (
@@ -34,6 +40,18 @@ export default function Header() {
           <Typography variant="caption" color="text.secondary">
             Document Intelligence Platform
           </Typography>
+        </Box>
+
+        <Box display="flex" alignItems="center" gap={2}>
+          {features.map((feature, idx) => (
+            <Chip
+              key={feature.id}
+              label={<Typography>{feature.name}</Typography>}
+              onClick={() => setSelectedFeatureIdx(idx)}
+              variant={selectedFeatureIdx === idx ? "filled" : "outlined"}
+              color={selectedFeatureIdx === idx ? "primary" : "default"}
+            />
+          ))}
         </Box>
 
         {/* Right Section */}
@@ -73,4 +91,6 @@ export default function Header() {
     </AppBar>
   );
 };
+
+export default Header
 
